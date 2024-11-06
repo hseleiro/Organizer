@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from "@angular/forms";
   <div>Register</div>
   `,
   standalone: true,
-  imports: [ReactiveFormsModule]
 })
 export class RegisterComponent {
 }
