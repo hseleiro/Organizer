@@ -46,9 +46,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.form.valid) {
-      this.auth.login(this.form.value).subscribe((res) => {
-        console.log('res', res)
-      });
+      this.auth.login(this.form.value).subscribe()
     }
   }
 }
