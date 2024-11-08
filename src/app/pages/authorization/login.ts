@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'login',
@@ -29,13 +30,13 @@ import {AuthService} from "../../services/auth.service";
   imports: [
     ReactiveFormsModule
   ],
-  providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
 
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   ngOnInit() {
     this.form = this.fb.nonNullable.group({
@@ -46,7 +47,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.form.valid) {
-      this.auth.login(this.form.value).subscribe()
+      this.auth.login(this.form.value).subscribe(() => {
+        this.router.navigateByUrl('/dashboard')
+      })
     }
   }
 }
