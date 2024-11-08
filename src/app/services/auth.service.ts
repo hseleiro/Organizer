@@ -12,11 +12,16 @@ export class AuthService {
     return this.http.post<UserInterface>('http://localhost:5005/app/auth/login', user, { withCredentials: true });
   }
 
-  validateSession(): Observable<any> {
-    return this.http.get('http://localhost:5005/app/user', { withCredentials: true });
+  logout() {
+    return this.http.get('http://localhost:5005/app/auth/logout', { withCredentials: true }).pipe(
+        tap(() => this.isAuth$.next(false))
+    );
   }
 
-  logout() {
-    return this.http.get('http://localhost:5005/app/auth/logout', { withCredentials: true });
+  validateSession(): Observable<any> {
+    return this.http.get('http://localhost:5005/app/user', { withCredentials: true }).pipe(
+        tap(() => this.isAuth$.next(true))
+    );
   }
+
 }
