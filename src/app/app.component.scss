@@ -1,0 +1,20 @@
+// toolbar
+mat-toolbar {
+  width: 100%;
+}
+
+.tool-bar-row {
+  background-color: #fffa65;
+  color: #4b4b4b;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.icon {
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
