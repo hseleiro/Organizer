@@ -1,10 +1,2 @@
-<mat-toolbar *ngIf="isAuth$ | async">
-  <mat-toolbar-row class="tool-bar-row">
-    <span>Organize app</span>
-    <span class="spacer"></span>
-    <button mat-icon-button class="icon" aria-label="icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<toolbar *ngIf="isAuth$ | async" />
 <router-outlet />

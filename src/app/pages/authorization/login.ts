@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'login',
   template: `
-    <div>Login</div>
     <form [formGroup]="form">
       <fieldset>
         <legend>Login</legend>
