@@ -10,4 +10,8 @@ export const routes: Routes = [
       return m.DashboardComponent;
     }
   },
+  { path: 'admin', canActivate: [authGuard], loadComponent: async () => {
+    const m = await import('./pages/admin.component');
+    return m.AdminComponent
+    }}
 ];
