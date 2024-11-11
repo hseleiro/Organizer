@@ -1,14 +1,16 @@
 import {Component} from "@angular/core";
 import {ToolbarComponent} from "../shared/components/toolbar.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'dashboard',
   template: `
-    <div>Dashboard</div>
+    <router-outlet />
   `,
   standalone: true,
   imports: [
-    ToolbarComponent
+    ToolbarComponent,
+    RouterOutlet
   ]
 })
 export class DashboardComponent {}

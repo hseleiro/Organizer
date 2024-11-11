@@ -5,6 +5,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
+import {AdminService} from "../../services/admin.service";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'toolbar',
@@ -14,16 +16,17 @@ import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
         <span>Organize app</span>
         <span class="spacer"></span>
         <button
-            mat-icon-button
-            [matMenuTriggerFor]="belowMenu"
-            class="icon"
-            aria-label="icon-button with menu icon">
+          mat-icon-button
+          [matMenuTriggerFor]="belowMenu"
+          class="icon"
+          aria-label="icon-button with menu icon">
           <mat-icon>menu</mat-icon>
         </button>
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <mat-menu class="menu"  #belowMenu="matMenu">
+    <mat-menu class="menu" #belowMenu="matMenu">
+      <button *ngIf="isAdmin$ | async" (click)="navigateToAdmin()" mat-menu-item>Admin</button>
       <button (click)="logout()" mat-menu-item>Logout</button>
     </mat-menu>
   `,
@@ -61,17 +64,25 @@ import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
     MatToolbarRow,
     MatMenu,
     MatMenuItem,
-    MatMenuModule
+    MatMenuModule,
+    AsyncPipe,
+    NgIf
   ],
   standalone: true
 })
 export class ToolbarComponent {
   private readonly authService = inject(AuthService);
+  private readonly adminService = inject(AdminService);
   private readonly router = inject(Router);
+  isAdmin$ = this.adminService.isAdmin$;
 
   logout() {
     this.authService.logout().subscribe(() => {
       this.router.navigateByUrl('/login')
     });
+  }
+
+  navigateToAdmin() {
+    this.router.navigateByUrl('/dashboard/admin')
   }
 }
