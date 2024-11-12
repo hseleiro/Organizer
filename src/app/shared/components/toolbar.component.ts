@@ -5,13 +5,17 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
-import {AdminService} from "../../services/admin.service";
 import {AsyncPipe, NgIf} from "@angular/common";
+import {isAdmin} from "../functions/is-admin";
+import {isAuth} from "../functions/is-auth";
+import {routeListener} from "../functions/route-listener";
 
 @Component({
   selector: 'toolbar',
   template: `
-    <mat-toolbar>
+    <mat-toolbar *ngIf="
+    (isAuth$ | async) &&
+    (urlListener$ | async ) !== '/login'">
       <mat-toolbar-row class="tool-bar-row">
         <span>Organize app</span>
         <span class="spacer"></span>
@@ -26,7 +30,12 @@ import {AsyncPipe, NgIf} from "@angular/common";
     </mat-toolbar>
 
     <mat-menu class="menu" #belowMenu="matMenu">
-      <button *ngIf="isAdmin$ | async" (click)="navigateToAdmin()" mat-menu-item>Admin</button>
+      <button *ngIf="
+        (isAdmin$ | async) &&
+        (urlListener$ | async) !== '/dashboard/admin'"
+        (click)="navigateToAdmin()"
+        mat-menu-item
+      >Admin</button>
       <button (click)="logout()" mat-menu-item>Logout</button>
     </mat-menu>
   `,
@@ -72,9 +81,10 @@ import {AsyncPipe, NgIf} from "@angular/common";
 })
 export class ToolbarComponent {
   private readonly authService = inject(AuthService);
-  private readonly adminService = inject(AdminService);
   private readonly router = inject(Router);
-  isAdmin$ = this.adminService.isAdmin$;
+  isAdmin$ = isAdmin();
+  isAuth$ = isAuth();
+  urlListener$ = routeListener();
 
   logout() {
     this.authService.logout().subscribe(() => {
