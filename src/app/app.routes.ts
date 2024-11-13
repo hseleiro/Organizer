@@ -14,6 +14,6 @@ export const routes: Routes = [
   { path: 'admin', canActivate: [adminGuard], loadComponent: async () => {
       const m = await import('./pages/admin.component');
       return m.AdminComponent
-    }}
+    }
+  }
 ];
-
