@@ -6,7 +6,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {isAuth} from "../functions/is-auth";
+import {ResolverDataService} from "../../services/resolver-data.service";
 
 @Component({
   selector: 'toolbar',
@@ -27,6 +27,7 @@ import {isAuth} from "../functions/is-auth";
 
     <mat-menu class="menu" #belowMenu="matMenu">
       <button
+        *ngIf="(isAdmin$ | async) && router.url !== '/admin'"
         (click)="navigateToAdmin()"
         mat-menu-item
       >Admin
@@ -70,7 +71,8 @@ import {isAuth} from "../functions/is-auth";
 })
 export class ToolbarComponent {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
+  isAdmin$ = inject(ResolverDataService).isAdmin$;
+  router = inject(Router);
 
   logout() {
     this.authService.logout().subscribe(() => {
