@@ -3,7 +3,7 @@ import {BehaviorSubject, filter} from "rxjs";
 import {NavigationEnd, Router} from "@angular/router";
 
 @Injectable({providedIn: "root"})
-export class RouteListenerService {
+export class RouteService {
   private readonly route = inject(Router);
   routerListener$ = new BehaviorSubject('');
 
