@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {LoginComponent} from "./pages/authorization/login";
 import {authGuard} from "./shared/guards/auth.guard";
 import {adminGuard} from "./shared/guards/admin.guard";
+import {NotFoundComponent} from "./pages/not-found.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,5 +16,6 @@ export const routes: Routes = [
       const m = await import('./pages/admin.component');
       return m.AdminComponent
     }
-  }
+  },
+  { path: '**', component: NotFoundComponent}
 ];
