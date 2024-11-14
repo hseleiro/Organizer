@@ -1,3 +1,2 @@
-<!--** router.url != '/login' - Prevents the toolbar from showing if the user navigates back to the login page while still authenticated **-->
 <toolbar *ngIf="(isAuth$ | async) && router.url != '/login'"/>
 <router-outlet />

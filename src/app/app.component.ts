@@ -19,5 +19,4 @@ import {isAuth} from "./shared/functions/is-auth";
 export class AppComponent {
   router = inject(Router)
   isAuth$ = isAuth();
-  title = 'organizer';
 }
