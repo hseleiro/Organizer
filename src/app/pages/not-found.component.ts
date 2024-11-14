@@ -5,6 +5,4 @@ import {Component} from "@angular/core";
     template: `<div>Not found</div>`,
     standalone: true
 })
-export class NotFoundComponent {
-    
-}
+export class NotFoundComponent {}
