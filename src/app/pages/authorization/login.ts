@@ -24,6 +24,13 @@ import {Router} from "@angular/router";
         </button>
       </div>
     </form>
+    <div>Not a user yet ? Please register
+      <span
+        style="color: green; font-weight: bold; cursor: pointer"
+        (click)="navigateToRegisterPage()">
+        here
+      </span>
+    </div>
   `,
   standalone: true,
   imports: [
@@ -50,5 +57,9 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/dashboard')
       })
     }
+  }
+
+  navigateToRegisterPage() {
+    this.router.navigateByUrl('/register')
   }
 }

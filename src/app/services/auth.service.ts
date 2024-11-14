@@ -12,6 +12,10 @@ export class AuthService {
     return this.http.post<UserType>('http://localhost:5005/app/auth/login', user, { withCredentials: true });
   }
 
+  register(user: UserType) {
+    return this.http.post<UserType>('http://localhost:5005/app/auth/register', user);
+  }
+
   logout() {
     return this.http.get('http://localhost:5005/app/auth/logout', { withCredentials: true }).pipe(
         tap(() => this.isAuth$.next(false))
