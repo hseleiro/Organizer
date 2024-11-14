@@ -8,6 +8,11 @@ import {adminRoleResolver} from "./shared/resolvers/is-admin.resolver";
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login',component: LoginComponent },
+  { path: 'register', loadComponent: async () => {
+    const m = await import('./pages/authorization/register');
+    return m.RegisterComponent;
+    }
+  },
   { path: 'dashboard', canActivate: [authGuard], loadComponent: async () => {
       const m = await import('./pages/dashboard.component');
       return m.DashboardComponent;
