@@ -1,10 +1,11 @@
 import {Component, inject, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'login',
   template: `
-    <div>Login</div>
     <form [formGroup]="form">
       <fieldset>
         <legend>Login</legend>
@@ -23,17 +24,25 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
         </button>
       </div>
     </form>
+    <div>Not a user yet ? Please register
+      <span
+        style="color: green; font-weight: bold; cursor: pointer"
+        (click)="navigateToRegisterPage()">
+        here
+      </span>
+    </div>
   `,
   standalone: true,
   imports: [
     ReactiveFormsModule
   ],
-  providers: []
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
 
   private readonly fb = inject(FormBuilder);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   ngOnInit() {
     this.form = this.fb.nonNullable.group({
@@ -44,8 +53,13 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.form.valid) {
-      console.log(this.form.value)
+      this.auth.login(this.form.value).subscribe(() => {
+        this.router.navigateByUrl('/dashboard')
+      })
     }
   }
-  
+
+  navigateToRegisterPage() {
+    this.router.navigateByUrl('/register')
+  }
 }
