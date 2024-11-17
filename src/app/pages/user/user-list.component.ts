@@ -2,7 +2,9 @@ import {Component} from "@angular/core";
 
 @Component({
   selector: 'user-list',
-  template: `<div>User List</div>`,
+  template: `<div>Users</div>`,
   standalone: true
 })
-export class UserListComponent {}
+export class UserListComponent {
+
+}
