@@ -7,7 +7,7 @@ import {ResolverDataService} from "../services/resolver-data.service";
   selector: 'dashboard',
   template: `
     <div>Dashboard</div>
-    <div *ngIf="isAdmin$ | async">Welcome Back - You are an admin</div>
+    <div *ngIf="isAdmin$ | async">Welcome Back MAU</div>
     <div *ngIf="!(isAdmin$ | async)">You are NOT admin</div>
   `,
   standalone: true,
