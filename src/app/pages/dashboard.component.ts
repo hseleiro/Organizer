@@ -1,23 +1,20 @@
-import {Component, inject} from "@angular/core";
-import {ActivatedRoute, RouterOutlet} from "@angular/router";
+import {Component} from "@angular/core";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {ResolverDataService} from "../services/resolver-data.service";
+import {isAdmin} from "../shared/functions/is-admin";
 
 @Component({
   selector: 'dashboard',
   template: `
     <div>Dashboard</div>
-    <div *ngIf="isAdmin$ | async">Welcome Back MAU</div>
+    <div *ngIf="isAdmin$ | async">Welcome Back you are admin</div>
     <div *ngIf="!(isAdmin$ | async)">You are NOT admin</div>
   `,
   standalone: true,
   imports: [
-    RouterOutlet,
     NgIf,
     AsyncPipe
   ]
 })
 export class DashboardComponent {
-  private readonly route = inject(ActivatedRoute);
-  isAdmin$ = inject(ResolverDataService).isAdmin$;
+  isAdmin$ = isAdmin();
 }
