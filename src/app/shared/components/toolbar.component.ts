@@ -76,11 +76,11 @@ export class ToolbarComponent {
 
   logout() {
     this.authService.logout().subscribe(() => {
-      this.router.navigateByUrl('/login')
+      this.router.navigateByUrl('/login');
     });
   }
 
   navigateToAdmin() {
-    this.router.navigateByUrl('/admin')
+    this.router.navigateByUrl('/admin');
   }
 }
