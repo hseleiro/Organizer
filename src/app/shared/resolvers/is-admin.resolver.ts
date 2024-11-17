@@ -6,15 +6,16 @@ import {ResolverDataService} from "../../services/resolver-data.service";
 export const adminRoleResolver = () => {
   const adminService = inject(AdminService);
   const resolveDataService = inject(ResolverDataService)
+
   return adminService.validateAdmin().pipe(
     map(res => {
       const isAdmin = res.status === 'success';
-      resolveDataService.setAdmin(isAdmin);
-      return isAdmin;
+      resolveDataService.setAdminPermission(isAdmin);
     }),
     catchError(() => {
-      resolveDataService.setAdmin(false)
+      resolveDataService.setAdminPermission(false)
       return of(false)
     })
   );
+
 };

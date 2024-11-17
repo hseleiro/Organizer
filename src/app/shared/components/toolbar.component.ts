@@ -6,7 +6,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
 import {AsyncPipe, NgIf} from "@angular/common";
-import {ResolverDataService} from "../../services/resolver-data.service";
+import {isAdmin} from "../functions/is-admin";
 
 @Component({
   selector: 'toolbar',
@@ -71,7 +71,7 @@ import {ResolverDataService} from "../../services/resolver-data.service";
 })
 export class ToolbarComponent {
   private readonly authService = inject(AuthService);
-  isAdmin$ = inject(ResolverDataService).isAdmin$;
+  readonly isAdmin$ = isAdmin();
   router = inject(Router);
 
   logout() {
