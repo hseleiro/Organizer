@@ -1,19 +1,19 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, tap} from "rxjs";
-import {UserType} from "../infrastructures/types/user.type";
+import {User} from "../infrastructures/types/user";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private readonly http = inject(HttpClient);
   isAuth$ = new BehaviorSubject(false);
 
-  login(user: UserType): Observable<UserType> {
-    return this.http.post<UserType>('http://localhost:5005/app/auth/login', user, { withCredentials: true });
+  login(user: User): Observable<User> {
+    return this.http.post<User>('http://localhost:5005/app/auth/login', user, { withCredentials: true });
   }
 
-  register(user: UserType) {
-    return this.http.post<UserType>('http://localhost:5005/app/auth/register', user);
+  register(user: User) {
+    return this.http.post<User>('http://localhost:5005/app/auth/register', user);
   }
 
   logout() {

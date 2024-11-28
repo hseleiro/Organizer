@@ -26,5 +26,11 @@ export const routes: Routes = [
       return m.AdminComponent
     }
   },
+  {
+    path: 'users-list', loadComponent: async () => {
+      const component = await import('./pages/user/user-list.component')
+      return component.UserListComponent;
+    }
+  },
   { path: '**', component: NotFoundComponent}
 ];
