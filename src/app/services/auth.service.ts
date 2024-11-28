@@ -27,5 +27,4 @@ export class AuthService {
         tap(() => this.isAuth$.next(true))
     );
   }
-
 }
