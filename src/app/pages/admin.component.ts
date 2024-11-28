@@ -5,4 +5,6 @@ import {Component} from "@angular/core";
   template: `<div>Admin Page</div>`,
   standalone: true
 })
-export class AdminComponent {}
+export class AdminComponent {
+
+}
