@@ -17,4 +17,5 @@ import {isAdmin} from "../shared/functions/is-admin";
 })
 export class DashboardComponent {
   isAdmin$ = isAdmin();
+
 }
