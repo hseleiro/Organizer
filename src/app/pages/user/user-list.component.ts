@@ -43,4 +43,5 @@ export class UserListComponent {
       return users.filter((user) => user._id !== id)
     })
   }
+
 }
