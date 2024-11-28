@@ -1,6 +1,6 @@
 import {UserListComponent} from "./user-list.component";
 
-describe('UnitTestComponent Integration Test', () => {
+describe('User list component unit test', () => {
   let component: UserListComponent;
 
   beforeEach(() => {
