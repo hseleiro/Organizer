@@ -83,4 +83,5 @@ export class ToolbarComponent {
   navigateToAdmin() {
     this.router.navigateByUrl('/admin');
   }
+
 }
