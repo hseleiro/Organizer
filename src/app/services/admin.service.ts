@@ -9,4 +9,5 @@ export class AdminService {
   validateAdmin(): Observable<any> {
     return this.http.get('http://localhost:5005/app/admin', { withCredentials: true })
   }
+
 }
