@@ -1,5 +1,5 @@
-import {Component, signal} from "@angular/core";
-import {User} from "../../infrastructures/types/user";
+import {Component, inject} from "@angular/core";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'users-list',
@@ -10,7 +10,7 @@ import {User} from "../../infrastructures/types/user";
       @for (user of users(); track user._id) {
         <li>
           {{user.first_name}}
-          <button (click)="deleteUser(user._id ?? 1)">Delete User</button>
+          <!--<button (click)="deleteUser(user._id ?? 1)">Delete User</button>-->
         </li>
       } @empty {
         <li>No users available.</li>
@@ -21,26 +21,11 @@ import {User} from "../../infrastructures/types/user";
   standalone: true
 })
 export class UserListComponent {
-  users = signal<User[]>([
-    {
-      _id: 1,
-      first_name: 'Hugo',
-      last_name: 'Seleiro',
-      email: 'teste@mail.com',
-      role: '0x88'
-    },
-    {
-      _id: 2,
-      first_name: 'Albino',
-      last_name: 'Cosme',
-      email: 'test2e@mail.com',
-      role: '0x01'
-    }
-  ]);
+  private readonly userService = inject(UserService);
+  users = this.userService.users
 
-  deleteUser(id: number) {
-    this.users.update((users) => {
-      return users.filter((user) => user._id !== id)
-    })
+  constructor() {
+    this.userService.connect()
   }
+
 }
