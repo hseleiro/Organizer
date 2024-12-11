@@ -27,10 +27,16 @@ import {isAdmin} from "../functions/is-admin";
 
     <mat-menu class="menu" #belowMenu="matMenu">
       <button
-        *ngIf="(isAdmin$ | async) && router.url !== '/admin'"
-        (click)="navigateToAdmin()"
         mat-menu-item
+        (click)="navigateToAdmin()"
+        *ngIf="(isAdmin$ | async) && router.url !== '/admin'"
       >Admin
+      </button>
+      <button
+        mat-menu-item
+        (click)="navigateToUserList()"
+        *ngIf="(isAdmin$ | async) && router.url !== '/dashboard'"
+      >Users
       </button>
       <button (click)="logout()" mat-menu-item>Logout</button>
     </mat-menu>
@@ -84,4 +90,7 @@ export class ToolbarComponent {
     this.router.navigateByUrl('/admin');
   }
 
+  navigateToUserList() {
+    this.router.navigateByUrl('/admin/user-list')
+  }
 }

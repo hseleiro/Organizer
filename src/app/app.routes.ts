@@ -24,13 +24,15 @@ export const routes: Routes = [
   { path: 'admin', canActivate: [adminGuard, authGuard], loadComponent: async () => {
       const m = await import('./pages/admin.component');
       return m.AdminComponent
-    }
-  },
-  {
-    path: 'users-list', canActivate: [adminGuard, authGuard], loadComponent: async () => {
-      const component = await import('./pages/user/user-list.component')
-      return component.UserListComponent;
-    }
+    },
+    children: [
+      {
+        path: 'user-list', canActivate: [authGuard], loadComponent: async () => {
+          const component = await import('./pages/user/user-list.component')
+          return component.UserListComponent;
+        }
+      },
+    ]
   },
   { path: '**', component: NotFoundComponent}
 ];
