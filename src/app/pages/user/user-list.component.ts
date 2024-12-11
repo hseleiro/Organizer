@@ -1,5 +1,5 @@
 import {Component, inject} from "@angular/core";
-import {UserService} from "../../services/user.service";
+import {UserManagementService} from "../../services/user-management.service";
 
 @Component({
   selector: 'users-list',
@@ -10,7 +10,8 @@ import {UserService} from "../../services/user.service";
       @for (user of users(); track user._id) {
         <li>
           {{user.first_name}}
-          <!--<button (click)="deleteUser(user._id ?? 1)">Delete User</button>-->
+          {{user._id}}
+          <button (click)="deleteUser(user._id ?? 1)">Delete User</button>
         </li>
       } @empty {
         <li>No users available.</li>
@@ -21,11 +22,12 @@ import {UserService} from "../../services/user.service";
   standalone: true
 })
 export class UserListComponent {
-  private readonly userService = inject(UserService);
-  users = this.userService.users
+  private readonly userManagementService = inject(UserManagementService);
 
-  constructor() {
-    this.userService.connect()
+  users = this.userManagementService.users;
+
+  deleteUser(id: number) {
+    this.userManagementService.deleteUser(id)
   }
 
 }
