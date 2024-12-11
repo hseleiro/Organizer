@@ -21,13 +21,13 @@ export const routes: Routes = [
       isAdmin: adminRoleResolver
     },
   },
-  { path: 'admin', canActivate: [adminGuard], loadComponent: async () => {
+  { path: 'admin', canActivate: [adminGuard, authGuard], loadComponent: async () => {
       const m = await import('./pages/admin.component');
       return m.AdminComponent
     }
   },
   {
-    path: 'users-list', loadComponent: async () => {
+    path: 'users-list', canActivate: [adminGuard, authGuard], loadComponent: async () => {
       const component = await import('./pages/user/user-list.component')
       return component.UserListComponent;
     }
