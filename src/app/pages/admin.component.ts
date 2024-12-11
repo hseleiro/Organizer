@@ -1,8 +1,13 @@
 import {Component} from "@angular/core";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'admin',
-  template: `<div>Admin Page</div>`,
+  template: `
+    <router-outlet />`,
+  imports: [
+    RouterOutlet
+  ],
   standalone: true
 })
 export class AdminComponent {}
