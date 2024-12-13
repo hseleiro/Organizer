@@ -10,7 +10,6 @@ import {isAuth} from "./shared/functions/is-auth";
   imports: [
     RouterOutlet,
     ToolbarComponent,
-    NgIf,
     AsyncPipe,
   ],
   templateUrl: './app.component.html',
@@ -19,5 +18,4 @@ import {isAuth} from "./shared/functions/is-auth";
 export class AppComponent {
   router = inject(Router)
   isAuth$ = isAuth();
-
 }

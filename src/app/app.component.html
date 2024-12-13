@@ -1,2 +1,4 @@
-<toolbar *ngIf="(isAuth$ | async) && router.url != '/login'"/>
+@if ((isAuth$ | async) && router.url != '/login') {
+  <toolbar />
+}
 <router-outlet />
