@@ -1,12 +1,12 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatToolbar, MatToolbarRow} from "@angular/material/toolbar";
 import {MatMenu, MatMenuItem, MatMenuModule} from "@angular/material/menu";
-import {AsyncPipe, NgIf} from "@angular/common";
 import {isAdmin} from "../functions/is-admin";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
   selector: 'toolbar',
@@ -26,18 +26,13 @@ import {isAdmin} from "../functions/is-admin";
     </mat-toolbar>
 
     <mat-menu class="menu" #belowMenu="matMenu">
-      <button
-        mat-menu-item
-        (click)="navigateToAdmin()"
-        *ngIf="(isAdmin$ | async) && router.url !== '/admin'"
-      >Admin
-      </button>
-      <button
-        mat-menu-item
-        (click)="navigateToUserList()"
-        *ngIf="(isAdmin$ | async) && router.url !== '/dashboard'"
-      >Users
-      </button>
+      @if ((isAdmin$ | async)) {
+        <button
+          mat-menu-item
+          (click)="navigateToAdmin()"
+        >Admin
+        </button>
+      }
       <button (click)="logout()" mat-menu-item>Logout</button>
     </mat-menu>
   `,
@@ -71,13 +66,12 @@ import {isAdmin} from "../functions/is-admin";
     MatMenuItem,
     MatMenuModule,
     AsyncPipe,
-    NgIf
   ],
   standalone: true
 })
 export class ToolbarComponent {
   private readonly authService = inject(AuthService);
-  readonly isAdmin$ = isAdmin();
+  isAdmin$ = isAdmin();
   router = inject(Router);
 
   logout() {
@@ -88,9 +82,5 @@ export class ToolbarComponent {
 
   navigateToAdmin() {
     this.router.navigateByUrl('/admin');
-  }
-
-  navigateToUserList() {
-    this.router.navigateByUrl('/admin/user-list')
   }
 }
