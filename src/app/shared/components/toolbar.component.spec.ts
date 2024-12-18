@@ -1,6 +1,4 @@
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { ToolbarComponent } from './toolbar.component';
 import { By } from '@angular/platform-browser';
 import { render, RenderResult } from '@testing-library/angular';
@@ -29,12 +27,6 @@ describe('ToolbarComponent', () => {
     } as unknown as Router;
 
     component = await render(ToolbarComponent, {
-      imports: [
-        MatToolbarModule,
-        MatMenuModule,
-        BrowserAnimationsModule,
-        NoopAnimationsModule
-      ],
       providers: [
         { provide: Router, useValue: mockRouter },
         MockProvider(AuthService)
