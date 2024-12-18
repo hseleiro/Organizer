@@ -6,4 +6,5 @@ export type User = {
   role?: string;
   token?: string
   username?: string;
+  password?: string;
 }

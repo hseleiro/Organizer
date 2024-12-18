@@ -18,10 +18,10 @@ let mockIsAuthSubject: BehaviorSubject<boolean>;
 
 describe('AppComponent', () => {
 
-  mockRouter = {};
-
   beforeEach(async () => {
     mockIsAuthSubject = new BehaviorSubject<boolean>(false);
+
+    mockRouter = {};
 
     (isAuth as jest.Mock).mockReturnValue(mockIsAuthSubject.asObservable());
 
@@ -48,6 +48,17 @@ describe('AppComponent', () => {
 
     const toolbar = component.debugElement.query(By.css('toolbar'))
     expect(toolbar).toBeTruthy();
+  })
+
+  it('should not render the toolbar component', () => {
+    mockIsAuthSubject.next(false);
+
+    Object.defineProperty(mockRouter, 'url', {
+      get: jest.fn(() => '/login')
+    })
+
+    const toolbar = component.debugElement.query(By.css('toolbar'))
+    expect(toolbar).toBeFalsy();
   })
 
 })
