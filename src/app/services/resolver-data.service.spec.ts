@@ -23,7 +23,7 @@ describe('ResolverDataService', () => {
   it('should set admin permission', (done) => {
     service.setAdminPermission(true);
 
-      service.isAdmin$.subscribe((res) => {
+    isAdminMock$.subscribe((res) => {
         expect(res).toBe(true);
         done()
       })
