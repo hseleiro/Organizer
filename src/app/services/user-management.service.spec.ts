@@ -6,7 +6,7 @@ import {of} from "rxjs";
 import {MockProvider} from "ng-mocks";
 import {UserManagementStubComponent} from "../testing/stubs/user-management-stub.component";
 
-const mockRequests: User[] = [
+const mockUsers: User[] = [
   {
     _id: 1,
     first_name: 'Hugo',
@@ -24,11 +24,11 @@ const mockRequests: User[] = [
 ]
 
 const MockUserRequestService: Partial<UserRequestsService> = {
-  getUsers: jest.fn().mockReturnValue(of(mockRequests)),
+  getUsers: jest.fn().mockReturnValue(of(mockUsers)),
   deleteUser: jest.fn().mockImplementation((id) => {
-    const index = mockRequests.findIndex((r) => r._id === id);
+    const index = mockUsers.findIndex((r) => r._id === id);
     if(index !== -1) {
-      mockRequests.splice(index, 1);
+      mockUsers.splice(index, 1);
     }
     return of({})
   })
@@ -56,14 +56,14 @@ describe('UserManagementService', () => {
   it('should have all users loaded initially', () => {
     const fixture = TestBed.createComponent(UserManagementStubComponent);
     fixture.detectChanges();
-    expect(service.users()).toEqual(mockRequests)
+    expect(service.users()).toEqual(mockUsers)
   })
 
   it('should delete a user', () => {
     const fixture = TestBed.createComponent(UserManagementStubComponent);
     service.deleteUser(1);
     fixture.detectChanges()
-    expect(service.users()).toBe(mockRequests);
+    expect(service.users()).toBe(mockUsers);
   })
 
 })
